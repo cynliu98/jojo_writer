@@ -2,18 +2,30 @@ import torch
 import torch.nn as nn
 # import a config from transformers
 from transformers import Trainer, TrainingArguments
+# OpenAI GPT for text generation
+from transformers import OpenAIGPTConfig, OpenAIGPTTokenizer, OpenAIGPTLMHeadModel
+from transformers import DataCollatorForLanguageModeling
 from process_data import *
 
-# initialize a model from a transformers config
+# initialize a model from config
+config = OpenAIGPTConfig(
+    vocab_size=100000,
+    n_positions=512,
+    n_layer=6
+)
 model = False
 
-# initialize a data collator WHAT IS THIS
-data_collator = False
+# the pretrained tokenizer
+tname = "Jojo_Tokenizer"
+tokenizer = OpenAIGPTTokenizer.from_pretrained(tname)
+
+# initialize a data collator 
+data_collator = False # DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=mlm, mlm_probability=mlm_probability)
 
 # initialize dataset - process_data
-dataset = False
+dataset = False # CAN'T USE LINE BY LINE SO HOW
 
-output = "jojo"
+output = "output"
 
 # initialize training arguments
 training_args = TrainingArguments(
